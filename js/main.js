@@ -1,4 +1,4 @@
-
+// populating the filter lists
 urls = [
     {
         url: 'http://randyconnolly.com/funwebdev/services/visits/browsers.php',
@@ -30,3 +30,12 @@ function printData(data, id) {
 for (var i = 0; i < urls.length; i++) {
     populateFilters(urls[i].url, urls[i].id);
 }
+
+// populating the table
+$.get('http://randyconnolly.com/funwebdev/services/visits/visits.php?continent=EU&month=1&limit=100').done(data => {
+    var html = ``;
+    data.forEach(el => {
+        html += `<tr><td>${el.id}</td><td>${el.visit_date}</td><td>${el.country}</td><td>${el.browser}</td><td>${el.operatingSystem}</td></tr>`;
+    });
+    $('#visitsBody').append(html);
+});
